@@ -81,6 +81,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./template-proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./template-proxy/import.html:/usr/share/nginx/html/import.html:ro
     networks:
       - dokploy-network
     labels:

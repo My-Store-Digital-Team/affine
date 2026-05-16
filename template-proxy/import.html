@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Importar plantilla de AFFiNE</title>
+<style>
+  body { background:#1a1a1a; color:#eee; font-family:system-ui,sans-serif; max-width:640px; margin:60px auto; padding:0 20px; }
+  h1 { font-size:22px; margin-bottom:8px; }
+  p { color:#aaa; line-height:1.5; }
+  input { width:100%; padding:12px; background:#2a2a2a; color:#fff; border:1px solid #444; border-radius:6px; font-family:monospace; font-size:13px; box-sizing:border-box; margin:12px 0; }
+  button { background:#3b82f6; color:#fff; border:0; padding:12px 28px; border-radius:6px; font-size:15px; cursor:pointer; }
+  button:hover { background:#2563eb; }
+  .ok { color:#10b981; }
+  .err { color:#ef4444; }
+  code { background:#2a2a2a; padding:2px 6px; border-radius:3px; font-size:12px; }
+  ol { padding-left:24px; line-height:1.7; }
+</style>
+</head>
+<body>
+<h1>Importar plantilla de AFFiNE.pro a tu instancia</h1>
+<p>Esta página reescribe el link de una plantilla de affine.pro para que se importe en tu Affine self-hosted, usando tu proxy CDN con CORS habilitado.</p>
+
+<h3>Cómo usar:</h3>
+<ol>
+  <li>Andá a <a href="https://affine.pro/templates" target="_blank" style="color:#60a5fa">affine.pro/templates</a></li>
+  <li>Abrí cualquier plantilla. <strong>Right-click sobre el botón "Use this template"</strong> &rarr; "Copy link"</li>
+  <li>Pegá el link acá abajo &rarr; click "Importar"</li>
+</ol>
+
+<input id="url" type="text" placeholder="https://app.affine.pro/template/import?...snapshotUrl=https%3A%2F%2Fcdn.affine.pro%2F..." autofocus>
+<button onclick="go()">Importar</button>
+<p id="msg"></p>
+
+<script>
+function go(){
+  var i = document.getElementById('url').value.trim();
+  var m = document.getElementById('msg');
+  if(!i){ m.innerHTML = '<span class="err">Falta el link.</span>'; return; }
+  if(i.indexOf('template/import') === -1){
+    m.innerHTML = '<span class="err">Este link no es de template/import. Asegurate de copiar del boton "Use this template".</span>';
+    return;
+  }
+  i = i.replace(/&amp;/g, '&');
+  var u = i.replace('app.affine.pro', 'affine.mystoredigital.cloud');
+  u = u.replace(/https%3A%2F%2Fcdn\.affine\.pro%2Ftemplate-snapshots%2F/g, 'https%3A%2F%2Faffine.mystoredigital.cloud%2Ftemplate-cdn%2Ftemplate-snapshots%2F');
+  m.innerHTML = '<span class="ok">Redirigiendo...</span>';
+  window.location = u;
+}
+document.getElementById('url').addEventListener('keypress', function(e){ if(e.key==='Enter') go(); });
+</script>
+</body>
+</html>
