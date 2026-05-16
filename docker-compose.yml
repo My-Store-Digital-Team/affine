@@ -1,6 +1,6 @@
 services:
   affine_migration:
-    image: ghcr.io/toeverything/affine:stable
+    image: ghcr.io/toeverything/affine:0.26.6
     container_name: affine_migration
     command: ["sh", "-c", "node ./scripts/self-host-predeploy.js"]
     environment:
@@ -27,7 +27,7 @@ services:
       - affine_internal
 
   affine:
-    image: ghcr.io/toeverything/affine:stable
+    image: ghcr.io/toeverything/affine:0.26.6
     container_name: affine_server
     restart: unless-stopped
     environment:
